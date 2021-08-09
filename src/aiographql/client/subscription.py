@@ -198,7 +198,7 @@ class GraphQLSubscription(GraphQLRequestContainer):
         :param endpoint: Endpoint to use when creating the websocket connection.
         :param session: Session to use when creating the websocket connection.
         """
-        async with session.ws_connect(endpoint) as ws:
+        async with session.ws_connect(endpoint, protocols=('graphql-ws',)) as ws:
             await ws.send_json(data=self.connection_init_request())
 
             self.callbacks.register(
